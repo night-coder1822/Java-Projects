@@ -1,0 +1,13 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\Rohit\\Downloads\\RSCalendar.jar",
+        "c:\\Users\\Rohit\\Downloads\\mysql-connector-java-8.0.28.jar",
+        "c:\\Users\\Rohit\\Downloads\\rs2xml.jar",
+        "c:\\Users\\Rohit\\OneDrive\\Desktop\\Night Coder\\Jar\\jcalendar-tz-1.3.3-4.jar",
+        "c:\\Users\\Rohit\\OneDrive\\Desktop\\Night Coder\\Jar\\mysql-connector-java-8.0.28.jar",
+        "c:\\Users\\Rohit\\OneDrive\\Desktop\\Night Coder\\Jar\\rs2xml.jar"
+    ]
+}

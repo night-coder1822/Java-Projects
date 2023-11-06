@@ -4,11 +4,11 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class Project extends JFrame implements ActionListener {
+public class AdminSection extends JFrame implements ActionListener {
 
     JButton button1,button2,button3,button4,button5;
 
-    Project() {
+    AdminSection() {
         super("PROJECT");
         // FRAME SIZE AND LOCATION
         setSize(1300,660);
@@ -97,6 +97,6 @@ public class Project extends JFrame implements ActionListener {
         }
     }
     public static void main (String args[]) {
-        new Project();
+        new AdminSection();
     }
 }

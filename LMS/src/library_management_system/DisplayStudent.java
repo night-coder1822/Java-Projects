@@ -14,37 +14,28 @@ public class DisplayStudent extends JFrame implements ActionListener {
     JTextField tfusername,tfpassword;
 
     DisplayStudent() {
-        super("Display Student");
+        super("DISPLAY STUDENT");
         setSize(1000, 400);
         setLocation(200,150);
         getContentPane().setBackground(Color.WHITE);
         setLayout(null);
 
-        JLabel lblusername = new JLabel("Username");
-        lblusername.setBounds(50, 40, 150, 30);
+        JLabel lblusername = new JLabel("Passkey");
+        lblusername.setBounds(150, 40, 150, 30);
         lblusername.setFont(new Font("serif",Font.BOLD, 23));
         add(lblusername);
         
         tfusername = new JTextField();
-        tfusername.setBounds(215, 40, 200, 30);
+        tfusername.setBounds(300, 40, 200, 30);
         add(tfusername);
 
-        JLabel lblpassword = new JLabel("Password");
-        lblpassword.setBounds(500, 40, 100, 30);
-        lblpassword.setFont(new Font("serif",Font.BOLD, 23));
-        add(lblpassword);
-        
-        tfpassword = new JPasswordField();
-        tfpassword.setBounds(655, 40, 200, 30);
-        add(tfpassword);
-
         login = new JButton("Login");
-        login.setBounds(40, 90, 100, 30);
+        login.setBounds(180, 90, 100, 30);
         login.addActionListener(this);
         add(login);
 
         cancel = new JButton("Back to Project2");
-        cancel.setBounds(180, 90, 150, 30);
+        cancel.setBounds(320, 90, 150, 30);
         cancel.addActionListener(this);
         add(cancel);
 
@@ -59,7 +50,7 @@ public class DisplayStudent extends JFrame implements ActionListener {
     public void actionPerformed (ActionEvent ae) {
 
         if (ae.getSource() == login) {
-            String query = "select * from adduser where username = '"+tfusername.getText()+"' and password = '"+tfpassword.getText()+"'";
+            String query = "select * from adduser where passkey = '"+tfusername.getText()+"'";
             try {
                 Conn c = new Conn();
                 ResultSet rs = c.s.executeQuery(query);

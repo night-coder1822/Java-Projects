@@ -179,12 +179,13 @@ public class ReturnBooks extends JFrame implements ActionListener{
                 con.s.executeUpdate(query2);
                 
                 JOptionPane.showMessageDialog(null, "Book Return Successfully");
-                new Project();
+                new AdminSection();
                 setVisible(false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
+            new AdminSection();
             setVisible(false);
         }
     }

@@ -135,13 +135,13 @@ public class AddBooks extends JFrame implements ActionListener {
                 c.s.executeUpdate(query);
 
                 JOptionPane.showMessageDialog(null, "Books Added Successfully!!");
-                new Project();
+                new AdminSection();
                 this.setVisible(false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            new Project();
+            new AdminSection();
             this.setVisible(false);
         }
     }

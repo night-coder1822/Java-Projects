@@ -77,7 +77,6 @@ public class StudentLogin extends JFrame implements ActionListener{
                     new Project2();
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid username or password");
-                    this.setVisible(false);
                 }  
             } catch (Exception e) {
                 e.printStackTrace();

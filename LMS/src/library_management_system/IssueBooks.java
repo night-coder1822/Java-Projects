@@ -9,9 +9,9 @@ import java.sql.*;
 public class IssueBooks extends JFrame implements ActionListener{
     
     JTextField tfname, tfbookname, tfisbn;
-    JLabel labelrollno, labelbookno, labelname, labelbookname, labelyear, labelisbn, labelquantityremains;
+    JLabel labelpasskey, labelbookno, labelname, labelbookname, labelyear, labelisbn, labelquantityremains,labelrollno;
     JButton submit, cancel;
-    Choice crollno, cbookno;
+    Choice cpasskey, cbookno;
     JDateChooser dcissue, dcdue;
     
     IssueBooks() {  
@@ -26,20 +26,20 @@ public class IssueBooks extends JFrame implements ActionListener{
         add(heading);
         
         // Choice Box 1
-        JLabel lblrollnumber = new JLabel("Roll Number");
-        lblrollnumber.setBounds(30, 100, 150, 30);
-        lblrollnumber.setFont(new Font("serif", Font.BOLD, 23));
-        add(lblrollnumber);
+        JLabel lblpasskey = new JLabel("Passkey");
+        lblpasskey.setBounds(30, 100, 150, 30);
+        lblpasskey.setFont(new Font("serif", Font.BOLD, 23));
+        add(lblpasskey);
         
-        crollno = new Choice();
-        crollno.setBounds(200, 100, 180, 30);
-        add(crollno);
+        cpasskey = new Choice();
+        cpasskey.setBounds(200, 100, 180, 30);
+        add(cpasskey);
         
         try {
             Conn c = new Conn();
             ResultSet rs = c.s.executeQuery("select * from adduser");
             while(rs.next()) {
-                crollno.add(rs.getString("rollno"));
+                cpasskey.add(rs.getString("passkey"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,15 +86,15 @@ public class IssueBooks extends JFrame implements ActionListener{
         labelbookname.setFont(new Font("serif", Font.BOLD, 23));
         add(labelbookname);
 
-        JLabel lblrollno = new JLabel("Roll Number");
-        lblrollno.setBounds(30, 240, 150, 30);
-        lblrollno.setFont(new Font("serif", Font.BOLD, 23));
-        add(lblrollno);
+        JLabel lblpasskeyno = new JLabel("Passkey");
+        lblpasskeyno.setBounds(30, 240, 150, 30);
+        lblpasskeyno.setFont(new Font("serif", Font.BOLD, 23));
+        add(lblpasskeyno);
     
-        labelrollno = new JLabel();
-        labelrollno.setBounds(200, 240, 180, 30);
-        labelrollno.setFont(new Font("Tahoma", Font.PLAIN, 23));
-        add(labelrollno);
+        labelpasskey = new JLabel();
+        labelpasskey.setBounds(200, 240, 180, 30);
+        labelpasskey.setFont(new Font("Tahoma", Font.PLAIN, 23));
+        add(labelpasskey);
 
         JLabel lblbookno = new JLabel("Book Number");
         lblbookno.setBounds(430, 240, 150, 30);
@@ -126,57 +126,70 @@ public class IssueBooks extends JFrame implements ActionListener{
         labelisbn.setFont(new Font("Serif", Font.BOLD, 23));
         add(labelisbn);
 
-        JLabel lblissue = new JLabel("Issue Date");
-        lblissue.setBounds(30, 380, 150, 30);
-        lblissue.setFont(new Font("serif", Font.BOLD, 23));
-        add(lblissue);
+        JLabel lblrollno = new JLabel("Roll Number");
+        lblrollno.setBounds(30, 380, 150, 30);
+        lblrollno.setFont(new Font("serif", Font.BOLD, 23));
+        add(lblrollno);
         
-        dcissue = new JDateChooser();
-        dcissue.setBounds(200, 380, 180, 30);
-        add(dcissue);
-        
-        JLabel lbldue = new JLabel("Due Date");
-        lbldue.setBounds(430, 380, 150, 30);
-        lbldue.setFont(new Font("serif", Font.BOLD, 23));
-        add(lbldue);
-        
-        dcdue = new JDateChooser();
-        dcdue.setBounds(600, 380, 180, 30);
-        add(dcdue);
+        labelrollno = new JLabel();
+        labelrollno.setBounds(200, 380, 180, 30);
+        labelrollno.setFont(new Font("Serif", Font.BOLD, 23));
+        add(labelrollno);
 
         JLabel lblquantityremains = new JLabel("Quantity Available - ");
-        lblquantityremains.setBounds(250, 450, 220, 30);
+        lblquantityremains.setBounds(430, 380, 250, 30);
         lblquantityremains.setFont(new Font("serif", Font.BOLD, 23));
         add(lblquantityremains);
 
         labelquantityremains = new JLabel();
-        labelquantityremains.setBounds(470, 450, 100, 30);
+        labelquantityremains.setBounds(650, 380, 100, 30);
         labelquantityremains.setFont(new Font("Serif", Font.BOLD, 23));
         add(labelquantityremains);
+
+        JLabel lblissue = new JLabel("Issue Date");
+        lblissue.setBounds(30, 450, 150, 30);
+        lblissue.setFont(new Font("serif", Font.BOLD, 23));
+        add(lblissue);
         
+        dcissue = new JDateChooser();
+        dcissue.setBounds(200, 450, 180, 30);
+        add(dcissue);
+
+        JLabel lbldue = new JLabel("Due Date");
+        lbldue.setBounds(430, 450, 150, 30);
+        lbldue.setFont(new Font("serif", Font.BOLD, 23));
+        add(lbldue);
+        
+        dcdue = new JDateChooser();
+        dcdue.setBounds(600, 450, 180, 30);
+        add(dcdue);
+        
+        // 1st Item State change
         try {
             Conn c = new Conn();
-            String query = "select * from adduser where rollno='"+crollno.getSelectedItem()+"'";
+            String query = "select * from adduser where passkey='"+cpasskey.getSelectedItem()+"'";
             ResultSet rs = c.s.executeQuery(query);
             while(rs.next()) {
                 labelname.setText(rs.getString("name"));
-                labelrollno.setText(rs.getString("rollno"));
+                labelpasskey.setText(rs.getString("passkey"));
                 labelyear.setText(rs.getString("year"));
+                labelrollno.setText(rs.getString("rollno"));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        crollno.addItemListener(new ItemListener() {
+        cpasskey.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent ie) {
                 try {
                     Conn c = new Conn();
-                    String query = "select * from adduser where rollno='"+crollno.getSelectedItem()+"'";
+                    String query = "select * from adduser where passkey='"+cpasskey.getSelectedItem()+"'";
                     ResultSet rs = c.s.executeQuery(query);
                     while(rs.next()) {
                         labelname.setText(rs.getString("name"));
-                        labelrollno.setText(rs.getString("rollno"));
+                        labelpasskey.setText(rs.getString("passkey"));
                         labelyear.setText(rs.getString("year"));
+                        labelrollno.setText(rs.getString("rollno"));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -184,6 +197,7 @@ public class IssueBooks extends JFrame implements ActionListener{
             }
         });
 
+        // 2nd Item State change
         
         try {
             Conn c = new Conn();
@@ -199,7 +213,7 @@ public class IssueBooks extends JFrame implements ActionListener{
             e.printStackTrace();
         }
         
-        crollno.addItemListener(new ItemListener() {
+        cbookno.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent ie) {
                 try {
                     Conn c = new Conn();
@@ -219,14 +233,14 @@ public class IssueBooks extends JFrame implements ActionListener{
         
         // Submit Button
         submit = new JButton("ISSUE");
-        submit.setBounds(220, 500, 150, 45);
+        submit.setBounds(220, 520, 150, 45);
         submit.addActionListener(this);
         submit.setFont(new Font("Tahoma",Font.BOLD, 20));
         add(submit);
 
         // Cancel Button
         cancel = new JButton("CANCEL");
-        cancel.setBounds(420, 500, 150, 45);
+        cancel.setBounds(420, 520, 150, 45);
         cancel.addActionListener(this);
         cancel.setFont(new Font("Tahoma",Font.BOLD, 20));
         add(cancel);
@@ -236,29 +250,31 @@ public class IssueBooks extends JFrame implements ActionListener{
     
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == submit) {
-            String rollno = labelrollno.getText();
+            String passkey = labelpasskey.getText();
             String name = labelname.getText();
             String bookno = labelbookno.getText();
             String booktitle = labelbookname.getText();
             String year = labelyear.getText();
             String isbn = labelisbn.getText();
+            String rollno = labelyear.getText();
             String issue = ((JTextField) dcissue.getDateEditor().getUiComponent()).getText();
             String due = ((JTextField) dcdue.getDateEditor().getUiComponent()).getText();
             
             try {
-                String query = "insert into issuebook values('"+rollno+"','"+name+"','"+bookno+"','"+booktitle+"','"+year+"','"+isbn+"','"+issue+"','"+due+"')";
+                String query = "insert into issuebook values('"+passkey+"','"+name+"','"+bookno+"','"+booktitle+"','"+year+"','"+isbn+"','"+rollno+"','"+issue+"','"+due+"')";
                 String query1  = "update addbook set quantity=quantity-1 where bookno='"+bookno+"'";
                 Conn con = new Conn();
                 con.s.executeUpdate(query);
                 con.s.executeUpdate(query1);
                 
                 JOptionPane.showMessageDialog(null, "Book Issued Successfully");
-                new Project();
+                new AdminSection();
                 setVisible(false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
+            new AdminSection();
             setVisible(false);
         }
     }

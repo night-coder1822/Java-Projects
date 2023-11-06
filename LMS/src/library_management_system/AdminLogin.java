@@ -74,7 +74,7 @@ public class AdminLogin extends JFrame implements ActionListener{
                 
                 if (rs.next()) {
                     setVisible(false);
-                    new Project();
+                    new AdminSection();
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid username or password");
                     setVisible(false);
@@ -84,6 +84,7 @@ public class AdminLogin extends JFrame implements ActionListener{
                 e.printStackTrace();
             }
         } else if (ae.getSource() == cancel) {
+            new Index();
             setVisible(false);
         }
     }

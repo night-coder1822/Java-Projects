@@ -103,7 +103,7 @@ public class AddBooks extends JFrame implements ActionListener {
         add(tfquantity);
 
         // Submit Button
-        submit = new JButton("Submit");
+        submit = new JButton("Add");
         submit.setBounds(220, 500, 150, 45);
         submit.addActionListener(this);
         submit.setFont(new Font("Tahoma",Font.BOLD, 20));

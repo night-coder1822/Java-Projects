@@ -9,9 +9,9 @@ import java.sql.*;
 public class ReturnBooks extends JFrame implements ActionListener{
     
     JTextField tfname, tfbookname, tfisbn;
-    JLabel labelrollno, labelbookno, labelname, labelbookname, labelyear, labelisbn, labelissue, labeldue;
+    JLabel labelrollno,labelpasskeyno, labelbookno, labelname, labelbookname, labelyear, labelisbn, labelissue, labeldue;
     JButton submit, cancel;
-    Choice crollno, cbookno;
+    Choice crollno, cbookno, cpasskey;
     JDateChooser dcissue, dcdue;
     
     ReturnBooks() {  
@@ -27,12 +27,12 @@ public class ReturnBooks extends JFrame implements ActionListener{
         
         // Choice Box 1
         JLabel lblbooknumber = new JLabel("Book Number");
-        lblbooknumber.setBounds(200, 100, 150, 30);
+        lblbooknumber.setBounds(30, 100, 150, 30);
         lblbooknumber.setFont(new Font("serif", Font.BOLD, 23));
         add(lblbooknumber);
         
         cbookno = new Choice();
-        cbookno.setBounds(370, 100, 180, 30);
+        cbookno.setBounds(200, 100, 180, 30);
         add(cbookno);
         
         try {
@@ -44,65 +44,96 @@ public class ReturnBooks extends JFrame implements ActionListener{
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // Choice Box 2
+        JLabel lblpasskey = new JLabel("Passkey");
+        lblpasskey.setBounds(450, 100, 100, 30);
+        lblpasskey.setFont(new Font("serif", Font.BOLD, 23));
+        add(lblpasskey);
+        
+        cpasskey = new Choice();
+        cpasskey.setBounds(570, 100, 180, 30);
+        add(cpasskey);
+        
+        try {
+            Conn c = new Conn();
+            ResultSet rs = c.s.executeQuery("select * from issuebook");
+            while(rs.next()) {
+                cpasskey.add(rs.getString("passkey"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
         // Display
-        JLabel lblbookno = new JLabel("Book Number");
-        lblbookno.setBounds(250, 150, 150, 30);
+        JLabel lblbookno = new JLabel("Book Number -");
+        lblbookno.setBounds(50, 180, 180, 30);
         lblbookno.setFont(new Font("serif", Font.BOLD, 23));
         add(lblbookno);
     
         labelbookno = new JLabel();
-        labelbookno.setBounds(430, 150, 180, 30);
+        labelbookno.setBounds(270, 180, 180, 30);
         labelbookno.setFont(new Font("Tahoma", Font.PLAIN, 23));
         add(labelbookno);
 
-        JLabel lblbookname = new JLabel("Book Name");
-        lblbookname.setBounds(250, 200, 150, 30);
+        JLabel lblpasskeyno = new JLabel("Passkey -");
+        lblpasskeyno.setBounds(400, 180, 150, 30);
+        lblpasskeyno.setFont(new Font("serif", Font.BOLD, 23));
+        add(lblpasskeyno);
+        
+        labelpasskeyno = new JLabel();
+        labelpasskeyno.setBounds(580, 180, 250, 30);
+        labelpasskeyno.setFont(new Font("Serif", Font.BOLD, 23));
+        add(labelpasskeyno);
+
+        JLabel lblbookname = new JLabel("Book Name -");
+        lblbookname.setBounds(350, 230, 150, 30);
         lblbookname.setFont(new Font("serif", Font.BOLD, 23));
         add(lblbookname);
         
         labelbookname = new JLabel();
-        labelbookname.setBounds(430, 200, 180, 30);
+        labelbookname.setBounds(530, 230, 250, 30);
         labelbookname.setFont(new Font("Serif", Font.BOLD, 23));
         add(labelbookname);
+
         
-        JLabel lblname = new JLabel("Student Name");
-        lblname.setBounds(250, 250, 150, 30);
+        JLabel lblname = new JLabel("Student Name -");
+        lblname.setBounds(50, 280, 180, 30);
         lblname.setFont(new Font("serif", Font.BOLD, 23));
         add(lblname);
         
         labelname = new JLabel();
-        labelname.setBounds(430, 250, 180, 30);
+        labelname.setBounds(270, 280, 180, 30);
         labelname.setFont(new Font("serif", Font.BOLD, 23));
         add(labelname);
 
-        JLabel lblrollno = new JLabel("Roll Number");
-        lblrollno.setBounds(250, 300, 150, 30);
+        JLabel lblrollno = new JLabel("Roll Number -");
+        lblrollno.setBounds(350, 330, 150, 30);
         lblrollno.setFont(new Font("serif", Font.BOLD, 23));
         add(lblrollno);
     
         labelrollno = new JLabel();
-        labelrollno.setBounds(430, 300, 180, 30);
+        labelrollno.setBounds(530, 330, 180, 30);
         labelrollno.setFont(new Font("Tahoma", Font.PLAIN, 23));
         add(labelrollno);
 
-        JLabel lblissue = new JLabel("Issue Date");
-        lblissue.setBounds(250, 350, 150, 30);
+        JLabel lblissue = new JLabel("Issue Date -");
+        lblissue.setBounds(50, 380, 180, 30);
         lblissue.setFont(new Font("serif", Font.BOLD, 23));
         add(lblissue);
         
         labelissue = new JLabel();
-        labelissue.setBounds(430, 350, 180, 30);
+        labelissue.setBounds(270, 380, 180, 30);
         labelissue.setFont(new Font("serif", Font.BOLD, 23));
         add(labelissue);
         
-        JLabel lbldue = new JLabel("Due Date");
-        lbldue.setBounds(250, 400, 150, 30);
+        JLabel lbldue = new JLabel("Due Date -");
+        lbldue.setBounds(350, 430, 150, 30);
         lbldue.setFont(new Font("serif", Font.BOLD, 23));
         add(lbldue);
         
         labeldue = new JLabel();
-        labeldue.setBounds(430, 400, 180, 30);
+        labeldue.setBounds(530, 430, 180, 30);
         labeldue.setFont(new Font("serif", Font.BOLD, 23));
         add(labeldue);
         
@@ -143,16 +174,43 @@ public class ReturnBooks extends JFrame implements ActionListener{
             }
         });
 
+        // Item state changed for Passkey
+        try {
+            Conn c = new Conn();
+            String query = "select * from issuebook where passkey='"+cpasskey.getSelectedItem()+"'";
+            ResultSet rs = c.s.executeQuery(query);
+            while(rs.next()) {
+                labelpasskeyno.setText(rs.getString("passkey"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        cbookno.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent ie) {
+                try {
+                    Conn c = new Conn();
+                    String query = "select * from issuebook where passkey='"+cpasskey.getSelectedItem()+"'";
+                    ResultSet rs = c.s.executeQuery(query);
+                    while(rs.next()) {
+                        labelpasskeyno.setText(rs.getString("passkey"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         // Return Button
         submit = new JButton("RETURN");
-        submit.setBounds(220, 500, 150, 45);
+        submit.setBounds(220, 530, 150, 45);
         submit.addActionListener(this);
         submit.setFont(new Font("Tahoma",Font.BOLD, 20));
         add(submit);
 
         // Cancel Button
         cancel = new JButton("CANCEL");
-        cancel.setBounds(420, 500, 150, 45);
+        cancel.setBounds(420, 530, 150, 45);
         cancel.addActionListener(this);
         cancel.setFont(new Font("Tahoma",Font.BOLD, 20));
         add(cancel);
@@ -163,6 +221,7 @@ public class ReturnBooks extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == submit) {
             String bookno = labelbookno.getText();
+            String passkey = labelpasskeyno.getText();
             String bookname = labelbookname.getText();
             String name = labelname.getText();
             String rollno = labelrollno.getText();
@@ -170,7 +229,7 @@ public class ReturnBooks extends JFrame implements ActionListener{
             String due = labeldue.getText();
             
             try {
-                String query = "insert into returnbook values('"+bookno+"','"+bookname+"','"+name+"','"+rollno+"','"+issue+"','"+due+"')";
+                String query = "insert into returnbook values('"+passkey+"','"+bookno+"','"+bookname+"','"+name+"','"+rollno+"','"+issue+"','"+due+"')";
                 String query1  = "update addbook set quantity=quantity+1 where bookno='"+bookno+"'";
                 String query2 = "delete from issuebook where bookno='"+bookno+"'";
                 Conn con = new Conn();

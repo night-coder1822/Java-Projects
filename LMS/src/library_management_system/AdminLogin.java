@@ -73,6 +73,7 @@ public class AdminLogin extends JFrame implements ActionListener{
                 ResultSet rs = c.s.executeQuery(query);
                 
                 if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Entered In Admin Section!!");
                     setVisible(false);
                     new AdminSection();
                 } else {

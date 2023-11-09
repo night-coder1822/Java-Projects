@@ -48,7 +48,6 @@ public class DisplayStudent extends JFrame implements ActionListener {
     }
 
     public void actionPerformed (ActionEvent ae) {
-
         if (ae.getSource() == login) {
             String query = "select * from adduser where passkey = '"+tfusername.getText()+"'";
             try {

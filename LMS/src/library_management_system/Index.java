@@ -52,7 +52,6 @@ public class Index extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == button1 ) {
-            JOptionPane.showMessageDialog(null, "Entered In Admin Section!!");
             new AdminLogin();
             this.setVisible(false);
         } 

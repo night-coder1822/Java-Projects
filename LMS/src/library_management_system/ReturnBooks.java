@@ -11,7 +11,7 @@ public class ReturnBooks extends JFrame implements ActionListener{
     JTextField tfname, tfbookname, tfisbn;
     JLabel labelrollno,labelpasskeyno, labelbookno, labelname, labelbookname, labelyear, labelisbn, labelissue, labeldue;
     JButton submit, cancel;
-    Choice crollno, cbookno, cpasskey;
+    Choice crollno, cbookno;
     JDateChooser dcissue, dcdue;
     
     ReturnBooks() {  
@@ -45,44 +45,44 @@ public class ReturnBooks extends JFrame implements ActionListener{
             e.printStackTrace();
         }
 
-        // Choice Box 2
-        JLabel lblpasskey = new JLabel("Passkey");
-        lblpasskey.setBounds(450, 100, 100, 30);
-        lblpasskey.setFont(new Font("serif", Font.BOLD, 23));
-        add(lblpasskey);
+        // // Choice Box 2
+        // JLabel lblpasskey = new JLabel("Passkey");
+        // lblpasskey.setBounds(450, 100, 100, 30);
+        // lblpasskey.setFont(new Font("serif", Font.BOLD, 23));
+        // add(lblpasskey);
         
-        cpasskey = new Choice();
-        cpasskey.setBounds(570, 100, 180, 30);
-        add(cpasskey);
+        // cpasskey = new Choice();
+        // cpasskey.setBounds(570, 100, 180, 30);
+        // add(cpasskey);
         
-        try {
-            Conn c = new Conn();
-            ResultSet rs = c.s.executeQuery("select * from issuebook");
-            while(rs.next()) {
-                cpasskey.add(rs.getString("passkey"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     Conn c = new Conn();
+        //     ResultSet rs = c.s.executeQuery("select * from issuebook");
+        //     while(rs.next()) {
+        //         cpasskey.add(rs.getString("passkey"));
+        //     }
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
         
         // Display
         JLabel lblbookno = new JLabel("Book Number -");
-        lblbookno.setBounds(50, 180, 180, 30);
+        lblbookno.setBounds(450, 100, 180, 30);
         lblbookno.setFont(new Font("serif", Font.BOLD, 23));
         add(lblbookno);
     
         labelbookno = new JLabel();
-        labelbookno.setBounds(270, 180, 180, 30);
+        labelbookno.setBounds(620, 100, 180, 30);
         labelbookno.setFont(new Font("Tahoma", Font.PLAIN, 23));
         add(labelbookno);
 
         JLabel lblpasskeyno = new JLabel("Passkey -");
-        lblpasskeyno.setBounds(400, 180, 150, 30);
+        lblpasskeyno.setBounds(50, 180, 150, 30);
         lblpasskeyno.setFont(new Font("serif", Font.BOLD, 23));
         add(lblpasskeyno);
         
         labelpasskeyno = new JLabel();
-        labelpasskeyno.setBounds(580, 180, 250, 30);
+        labelpasskeyno.setBounds(270, 180, 250, 30);
         labelpasskeyno.setFont(new Font("Serif", Font.BOLD, 23));
         add(labelpasskeyno);
 
@@ -143,6 +143,7 @@ public class ReturnBooks extends JFrame implements ActionListener{
             ResultSet rs = c.s.executeQuery(query);
             while(rs.next()) {
                 labelbookno.setText(rs.getString("bookno"));
+                labelpasskeyno.setText(rs.getString("passkey"));
                 labelbookname.setText(rs.getString("booktitle"));
                 labelname.setText(rs.getString("name"));
                 labelrollno.setText(rs.getString("rollno"));
@@ -162,6 +163,7 @@ public class ReturnBooks extends JFrame implements ActionListener{
                     ResultSet rs = c.s.executeQuery(query);
                     while(rs.next()) {
                         labelbookno.setText(rs.getString("bookno"));
+                        labelpasskeyno.setText(rs.getString("passkey"));
                         labelbookname.setText(rs.getString("booktitle"));
                         labelname.setText(rs.getString("name"));
                         labelrollno.setText(rs.getString("rollno"));
@@ -175,31 +177,31 @@ public class ReturnBooks extends JFrame implements ActionListener{
         });
 
         // Item state changed for Passkey
-        try {
-            Conn c = new Conn();
-            String query = "select * from issuebook where passkey='"+cpasskey.getSelectedItem()+"'";
-            ResultSet rs = c.s.executeQuery(query);
-            while(rs.next()) {
-                labelpasskeyno.setText(rs.getString("passkey"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     Conn c = new Conn();
+        //     String query = "select * from issuebook where passkey='"+cpasskey.getSelectedItem()+"'";
+        //     ResultSet rs = c.s.executeQuery(query);
+        //     while(rs.next()) {
+        //         labelpasskeyno.setText(rs.getString("passkey"));
+        //     }
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
         
-        cbookno.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent ie) {
-                try {
-                    Conn c = new Conn();
-                    String query = "select * from issuebook where passkey='"+cpasskey.getSelectedItem()+"'";
-                    ResultSet rs = c.s.executeQuery(query);
-                    while(rs.next()) {
-                        labelpasskeyno.setText(rs.getString("passkey"));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        // cbookno.addItemListener(new ItemListener() {
+        //     public void itemStateChanged(ItemEvent ie) {
+        //         try {
+        //             Conn c = new Conn();
+        //             String query = "select * from issuebook where passkey='"+cpasskey.getSelectedItem()+"'";
+        //             ResultSet rs = c.s.executeQuery(query);
+        //             while(rs.next()) {
+        //                 labelpasskeyno.setText(rs.getString("passkey"));
+        //             }
+        //         } catch (Exception e) {
+        //             e.printStackTrace();
+        //         }
+        //     }
+        // });
 
         // Return Button
         submit = new JButton("RETURN");
